@@ -15,6 +15,9 @@ int main(int argc, const char * argv[]) {
         // Create an array of Employee objects
         NSMutableArray *employees = [NSMutableArray array];
         
+        // Create a dictionary of executives
+        NSMutableDictionary *executives = [[NSMutableDictionary alloc] init];
+        
         for (int i = 0; i < 10; i++) {
             // Create an Employee
             Employee *person = [[Employee alloc] init];
@@ -26,6 +29,14 @@ int main(int argc, const char * argv[]) {
             
             // Put the employee in the array
             [employees addObject:person];
+            
+            // The first employee is the CEO
+            if (i == 0) {
+                [executives setObject:person forKey:@"CEO"];
+            // The second employee is the CTO
+            } else if (i == 1) {
+                [executives setObject:person forKey:@"CTO"];
+            }
         }
         
         NSMutableArray *allAssets = [NSMutableArray array];
@@ -61,6 +72,15 @@ int main(int argc, const char * argv[]) {
         [employees removeObjectAtIndex:5];
         
         NSLog(@"allAssets: %@", allAssets);
+        
+        NSLog(@"executives: %@", executives);
+        executives = nil;
+        
+        // All assets with a holder with value over 70 will be reclaimed
+        NSArray *toBeReclaimed = [allAssets filteredArrayUsingPredicate:
+                                  [NSPredicate predicateWithFormat:@"holder.valueOfAssets > 70"]];
+        NSLog(@"toBeReclaimed: %@", toBeReclaimed);
+        toBeReclaimed = nil;
         
         NSLog(@"Giving up ownership of array");
         allAssets = nil;

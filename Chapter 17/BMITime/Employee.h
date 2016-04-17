@@ -13,7 +13,7 @@
 // Employees are like Person but with an extra ID
 @interface Employee : Person {
     int employeeID;
-    NSMutableArray *assets;
+    NSMutableSet *assets;
 }
 
 @property int employeeID;
